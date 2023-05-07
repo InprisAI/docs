@@ -44,3 +44,27 @@ body:
 ```
 
 Keep the conversation going by sending more requests to the API, passing the `CONVERSATION-ID` header with each subsequent utterance.
+
+## Initiating Outbound Calls - *TBD*
+
+You can initiate an outbound call to a specified phone number by calling the `/out-call` endpoint.
+
+### Request
+
+```bash
+curl --location 'https://humains-core.appspot.com/out-call' \
+--header 'CLIENT-ID: web-internal-demo' \
+--header 'Content-Type: application/json' \
+--data '{
+  "phone_number": "+1234567890",
+}'
+```
+
+### Response
+
+```bash
+{
+  "status": "success",
+  "message": "Call initiated successfully",
+  "call_id": "a1b2c3d4e5f6g7h8i9j0"
+}
