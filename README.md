@@ -9,7 +9,7 @@ Each conversation starts with a standard API call, passing the `CLIENT-ID` heade
 ### Request
 
 ```bash
-curl --location 'https://humains-core.appspot.com/bot' \
+curl --location 'https://chatwith.humains.com/bot' \
 --header 'CLIENT-ID: web-internal-demo' \
 --header 'Content-Type: text/plain' \
 --data 'Hi, what can you tell me about yourself?'
@@ -27,7 +27,7 @@ Hi there! My name is AIngel, and I am a Hue-main in a role of a travel agent. I 
 ### Next Request
 
 ```bash
-curl --location 'https://humains-core.appspot.com/bot' \
+curl --location 'https://chatwith.humains.com/bot' \
 --header 'CLIENT-ID: web-internal-demo' \
 --header 'CONVERSATION_ID-ID: f759f7b476fc4908a9a0a8989c3ff325' \
 --header 'Content-Type: text/plain' \
@@ -45,18 +45,19 @@ body:
 
 Keep the conversation going by sending more requests to the API, passing the `CONVERSATION-ID` header with each subsequent utterance.
 
-## Initiating Outbound Calls - *TBD*
+## Preparing a Conversation
 
-You can initiate an outbound call to a specified phone number by calling the `/out-call` endpoint.
+This endpoint allows you to set up a conversation with optional parameters. You can pass a `client_id`, an optional `conversation_id`, and optional `key` and `value` pairs. The endpoint returns a `conversation_id` and sets the key and value for this conversation. This is useful for future outbound calls and monitoring the conversation.
 
 ### Request
 
 ```bash
-curl --location 'https://humains-core.appspot.com/out-call' \
---header 'CLIENT-ID: web-internal-demo' \
+curl --location 'https://chatwith.humains.com/prepare_conversation' \
 --header 'Content-Type: application/json' \
 --data '{
-  "phone_number": "+1234567890",
+  "client_id": "test:o7it",
+  "key": "converse_params",
+  "value": "{\"investor_name\": \"Nissan\", \"assertivness_level\": \"confident\"}"
 }'
 ```
 
@@ -64,7 +65,25 @@ curl --location 'https://humains-core.appspot.com/out-call' \
 
 ```bash
 {
-  "status": "success",
-  "message": "Call initiated successfully",
-  "call_id": "a1b2c3d4e5f6g7h8i9j0"
+  "conversation_id": "generated_conversation_id"
 }
+```
+
+## Initiating a Call
+
+You can initiate a call to a specified phone number based on a specific client and conversation ID by using the `/call/client/<client>/conversation/<conversation_id>/<phone>` endpoint.
+
+### Request
+
+```bash
+curl --location 'https://chatwith.humains.com/call/client/<client>/conversation/<conversation_id>/<phone>' \
+--request POST
+```
+
+Replace `<client>`, `<conversation_id>`, and `<phone>` with the appropriate values.
+
+### Response
+
+A successful call initiation will return a `200 OK` status.
+
+Make sure to prepare the conversation using the `/prepare_conversation` endpoint before initiating the call.
