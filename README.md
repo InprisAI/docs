@@ -2,6 +2,12 @@
 
 This API manages the conversation flow with HumAIs chatbots. The conversation history is managed on the backend, and all the calls follow the same structure.
 
+
+## Authentication
+
+Each request should come with an Authorization Bearer header with your API token. - TDB
+
+
 ## Initiating a Conversation
 
 Each conversation starts with a standard API call, passing the `CLIENT-ID` header. The API response includes the newly created `CONVERSATION-ID`. Each consecutive request acts as an utterance of the user, maintaining the flow of the conversation.
@@ -10,6 +16,7 @@ Each conversation starts with a standard API call, passing the `CLIENT-ID` heade
 
 ```bash
 curl --location 'https://chatwith.humains.com/bot' \
+--header "Authorization": "Bearer YOUR_API_KEY" \
 --header 'CLIENT-ID: web-internal-demo' \
 --header 'Content-Type: text/plain' \
 --data 'Hi, what can you tell me about yourself?'
@@ -29,6 +36,7 @@ Hi there! My name is AIngel, and I am a Hue-main in a role of a travel agent. I 
 ```bash
 curl --location 'https://chatwith.humains.com/bot' \
 --header 'CLIENT-ID: web-internal-demo' \
+--header "Authorization": "Bearer YOUR_API_KEY" \
 --header 'CONVERSATION_ID-ID: f759f7b476fc4908a9a0a8989c3ff325' \
 --header 'Content-Type: text/plain' \
 --data 'Juda'
@@ -54,6 +62,7 @@ This endpoint allows you to set up a conversation with optional parameters. You 
 ```bash
 curl --location 'https://chatwith.humains.com/prepare_conversation' \
 --header 'Content-Type: application/json' \
+--header "Authorization": "Bearer YOUR_API_KEY" \
 --data '{
   "client_id": "test:o7it",
   "key": "converse_params",
