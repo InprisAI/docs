@@ -1,10 +1,6 @@
 ### main
+
 [humains.com](https://www.humains.com/)
-
-<a href="https://www.humains.com" target="_blank">humains.com</a>
-
-<a href="javascript:void(0);" onclick="window.open('https://www.google.com', '_blank');">Google</a>
-
 
 
 
