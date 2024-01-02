@@ -1,6 +1,10 @@
 ### main
 [humains.com](https://www.humains.com/)
 
+[Audi Live](https://www.humains.com/audi)
+
+[Yosef](https://humians-demos.vercel.app/yosef/index.html)
+
 ### ECI
 
 [make phone call](https://www.humains.com/he/call-1)
