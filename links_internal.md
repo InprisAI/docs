@@ -6,9 +6,9 @@
 
 ### Exdemos
 
-Angel
+[Angel](https://inprisai.github.io/exdemos/angel/index.html)
 
-Angel-2-1
+[Angel-2-1](https://inprisai.github.io/exdemos/angel2-1/index.html) 
 
 [Audi](https://inprisai.github.io/exdemos/audi/index.html)
 
