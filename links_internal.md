@@ -35,5 +35,3 @@
 
 [inpris way](https://inprisai.github.io/inprisway_demo_fe/)
 
-### dev internal
-[core web tester]()
