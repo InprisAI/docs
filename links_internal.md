@@ -1,5 +1,5 @@
 ### main
-[commercial wix website](https://www.humains.com/)
+[humains.com](https://www.humains.com/)
 
 ### ECI
 
