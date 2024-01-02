@@ -36,7 +36,7 @@
 [Angel](https://angel2.inpris.ai:10456/?client=test:an3el2&l=en-US)
 
 
-### General Demos
+### Control Panel's
 
 [klara](https://inprisai.github.io/k1ara_demo_fe/)
 
