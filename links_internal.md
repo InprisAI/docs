@@ -16,14 +16,14 @@ Angel-2-1
 
 [Sacks](https://inprisai.github.io/exdemos/sacks/index.html)
 
-[Sackse
+[Sacks_e](https://inprisai.github.io/exdemos/sacks_e/index.html)
 
-[Sacks2
+[Sacks2](https://inprisai.github.io/exdemos/sacks2/index.html)
 
-[Toni 
+[Toni](https://inprisai.github.io/exdemos/toni/index.html)
 
 [Yair](https://inprisai.github.io/exdemos/yair/index.html)
 
-[Yoav
+[Yoav](https://inprisai.github.io/exdemos/yoav/index.html)
 
-[Yosef
+[Yosef](https://inprisai.github.io/exdemos/yosef/index.html)
