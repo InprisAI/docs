@@ -28,6 +28,10 @@
 
 [Yosef](https://inprisai.github.io/exdemos/yosef/index.html)
 
+### Avatars
+
+[Angel](https://angel2.inpris.ai:10456/?client=test:an3el2&l=en-US)
+
 
 ### General Demos
 
