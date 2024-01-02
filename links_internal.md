@@ -27,3 +27,13 @@
 [Yoav](https://inprisai.github.io/exdemos/yoav/index.html)
 
 [Yosef](https://inprisai.github.io/exdemos/yosef/index.html)
+
+
+### General Demos
+
+[klara](https://inprisai.github.io/k1ara_demo_fe/)
+
+[inpris way](https://inprisai.github.io/inprisway_demo_fe/)
+
+### dev internal
+[core web tester]()
