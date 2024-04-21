@@ -66,7 +66,7 @@ curl --location 'https://chatwith.humains.com/prepare_conversation' \
 --data '{
   "client_id": "test:o7it",
   "key": "converse_params",
-  "value": "{\"investor_name\": \"Nissan\", \"assertivness_level\": \"confident\"}"
+  "value": "{\"investor_name\": \"John\", \"assertivness_level\": \"confident\"}"
 }'
 ```
 
