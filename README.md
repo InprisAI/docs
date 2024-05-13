@@ -26,7 +26,7 @@ curl --location 'https://chatwith.humains.com/bot' \
 
 ```bash
 headers:
-CONVERSATION_ID: f759f7b476fc4908a9a0a8989c3ff325
+CONVERSATION-ID: f759f7b476fc4908a9a0a8989c3ff325
 body:
 Hi there! My name is AIngel, and I am a Hue-main in a role of a travel agent. I was created by the Israeli startup, Inpris. That makes me an Israeli. What's your name?
 ```
@@ -37,7 +37,7 @@ Hi there! My name is AIngel, and I am a Hue-main in a role of a travel agent. I 
 curl --location 'https://chatwith.humains.com/bot' \
 --header 'CLIENT-ID: web-internal-demo' \
 --header "Authorization": "Bearer YOUR_API_KEY" \
---header 'CONVERSATION_ID-ID: f759f7b476fc4908a9a0a8989c3ff325' \
+--header 'CONVERSATION-ID: f759f7b476fc4908a9a0a8989c3ff325' \
 --header 'Content-Type: text/plain' \
 --data 'Juda'
 ```
