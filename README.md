@@ -5,8 +5,34 @@ This API manages the conversation flow with HumAIs chatbots. The conversation hi
 
 ## Authentication
 
-Each request should come with an Authorization Bearer header with your API token. - TDB
+Each request should come with an Authorization Bearer header with your API token.
 
+If you have a user and password
+```bash
+curl -u user:password -H "Content-Type: application/json" http://chatwith.humains.com/auth/login
+```
+this will return a JWT Bearer token which we call "USER_TOKEN"
+
+if you already have a user token and want to start a conversation:
+
+curl --location 'https://chatwith.humains.com/start_conversation' \
+--header "Authorization": "Bearer USER_TOKEN" \
+--header 'CLIENT-ID: web-internal-demo' \
+--header 'Content-Type: text/plain' \
+--data 'Hi, what can you tell me about yourself?'
+```
+
+this will return a conversation id + CONVERSATION_TOKEN
+
+to continue thw conversation use the conversation token and use the /p_bot endpoint
+
+```bash
+curl --location 'https://chatwith.humains.com/p_bot' \
+--header "Authorization": "Bearer YOUR_API_KEY" \
+--header 'CLIENT-ID: web-internal-demo' \
+--header 'Content-Type: text/plain' \
+--data 'Hi, what can you tell me about yourself?'
+```
 
 ## Initiating a Conversation
 
