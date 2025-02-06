@@ -104,6 +104,58 @@ curl --location 'https://chatwith.humains.com/prepare_conversation' \
 }
 ```
 
+## Deleting Conversation Information (Admin Only)
+
+Admin users can manage conversation-related metadata through the following DELETE endpoints.
+
+### Delete All Conversation Information
+
+**Endpoint:** `DELETE /clients/info/delete`
+
+Use this endpoint to purge all conversation information for a specific conversation. This operation requires admin-level authentication.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/info/delete' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--request DELETE \
+--data '{
+  "client_id": "clientName",
+  "conversation_id": "conversationId"
+}'
+```
+
+**Response:**
+```json
+{"status": "ok"}
+```
+
+### Delete Specific Conversation Information Key
+
+**Endpoint:** `DELETE /clients/info_key/delete`
+
+This endpoint allows you to delete a specific key from the conversation's metadata. Admin privileges are required.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/info_key/delete' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--request DELETE \
+--data '{
+  "client_id": "clientName",
+  "conversation_id": "conversationId",
+  "key": "keyName"
+}'
+```
+
+**Response:**
+```json
+{"status": "ok"}
+```
+
+
 ## Initiating a Call
 
 You can initiate a call to a specified phone number based on a specific client and conversation ID by using the `/call/client/<client>/conversation/<conversation_id>/<phone>` endpoint.
