@@ -104,6 +104,42 @@ curl --location 'https://chatwith.humains.com/prepare_conversation' \
 }
 ```
 
+#### Get Client Conversations (Full)
+**Endpoint:** `GET /clients/{client_name}/conversations_full`  
+Retrieves detailed conversation history for a client, with optional date filtering.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations_full?start_date=1234567890&end_date=1234567899'
+```
+
+#### Get Client Conversations (Summary)
+**Endpoint:** `GET /clients/{client_name}/conversations`  
+Retrieves conversation summaries for a client, with optional date filtering.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations?start_date=1234567890&end_date=1234567899'
+```
+
+#### Get Single Conversation
+**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}`  
+Retrieves details of a specific conversation.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id'
+```
+
+#### Get Conversation Info
+**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}/info`  
+Retrieves metadata and external information for a specific conversation.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id/info'
+```
+
 ## Deleting Conversation Information (Admin Only)
 
 Admin users can manage conversation-related metadata through the following DELETE endpoints.
