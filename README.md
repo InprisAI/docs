@@ -105,7 +105,7 @@ curl --location 'https://chatwith.humains.com/prepare_conversation' \
 ```
 
 #### Get Client Conversations (Full)
-**Endpoint:** `GET /clients/{client_name}/conversations_full`  
+**Endpoint:** `GET /hub/clients/{client_name}/conversations_full`  
 Retrieves detailed conversation history for a client, with optional date filtering.
 
 **Request:**
@@ -114,30 +114,30 @@ curl --location 'https://chatwith.humains.com/clients/client_name/conversations_
 ```
 
 #### Get Client Conversations (Summary)
-**Endpoint:** `GET /clients/{client_name}/conversations`  
+**Endpoint:** `GET /hub/clients/{client_name}/conversations`  
 Retrieves conversation summaries for a client, with optional date filtering.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/clients/client_name/conversations?start_date=1234567890&end_date=1234567899'
+curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations?start_date=1234567890&end_date=1234567899'
 ```
 
 #### Get Single Conversation
-**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}`  
+**Endpoint:** `GET /hub/clients/{client_name}/conversations/{conversation_id}`  
 Retrieves details of a specific conversation.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id'
+curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations/conversation_id'
 ```
 
 #### Get Conversation Info
-**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}/info`  
+**Endpoint:** `GET /hub/clients/{client_name}/conversations/{conversation_id}/info`  
 Retrieves metadata and external information for a specific conversation.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id/info'
+curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations/conversation_id/info'
 ```
 
 ## Deleting Conversation Information (Admin Only)
@@ -146,13 +146,13 @@ Admin users can manage conversation-related metadata through the following DELET
 
 ### Delete All Conversation Information
 
-**Endpoint:** `DELETE /clients/info/delete`
+**Endpoint:** `DELETE /hub/clients/info/delete`
 
 Use this endpoint to purge all conversation information for a specific conversation. This operation requires admin-level authentication.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/clients/info/delete' \
+curl --location 'https://chatwith.humains.com/hub/clients/info/delete' \
 --header "Authorization: Bearer ADMIN_TOKEN" \
 --header 'Content-Type: application/json' \
 --request DELETE \
@@ -169,13 +169,13 @@ curl --location 'https://chatwith.humains.com/clients/info/delete' \
 
 ### Delete Specific Conversation Information Key
 
-**Endpoint:** `DELETE /clients/info_key/delete`
+**Endpoint:** `DELETE /hub/clients/info_key/delete`
 
 This endpoint allows you to delete a specific key from the conversation's metadata. Admin privileges are required.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/clients/info_key/delete' \
+curl --location 'https://chatwith.humains.com/hub/clients/info_key/delete' \
 --header "Authorization: Bearer ADMIN_TOKEN" \
 --header 'Content-Type: application/json' \
 --request DELETE \
