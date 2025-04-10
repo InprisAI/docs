@@ -79,6 +79,49 @@ body:
 
 Keep the conversation going by sending more requests to the API, passing the `CONVERSATION-ID` header with each subsequent utterance.
 
+## Complex Response Structure
+
+The API now supports a more complex response structure that can be configured per client. This allows for more detailed and customized responses with additional information and metadata.
+
+### Configuration
+
+To enable the complex response structure for a client, you need to set a configuration in the database using the settings API:
+
+```bash
+curl --location 'https://chatwith.humains.com/settings' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "resp_structure:client_name": "{\"additional_info\": [\"key1\", \"key2\"], \"utterance_with_pronunciation\": true}"
+}'
+```
+
+Where:
+- `client_name` is the name of your client
+- `additional_info` is an array of keys to include in the response
+- `utterance_with_pronunciation` (optional) enables returning both the plain utterance and the utterance with pronunciation
+
+### Response Format
+
+When the complex response structure is enabled, the API will return a JSON response instead of plain text:
+
+```json
+{
+  "utterance": "Plain text response without pronunciation",
+  "utterance_with_pronunciation": "Response with pronunciation marks",
+  "additional_info": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "metadata": {
+    "conversation_id": "f759f7b476fc4908a9a0a8989c3ff325",
+    "client_id": "web-internal-demo"
+  }
+}
+```
+
+This structure allows clients to receive both the plain text response and additional contextual information in a single API call.
+
 ## Preparing a Conversation
 
 This endpoint allows you to set up a conversation with optional parameters. You can pass a `client_id`, an optional `conversation_id`, and optional `key` and `value` pairs. The endpoint returns a `conversation_id` and sets the key and value for this conversation. This is useful for future outbound calls and monitoring the conversation.
@@ -104,55 +147,19 @@ curl --location 'https://chatwith.humains.com/prepare_conversation' \
 }
 ```
 
-#### Get Client Conversations (Full)
-**Endpoint:** `GET /hub/clients/{client_name}/conversations_full`  
-Retrieves detailed conversation history for a client, with optional date filtering.
-
-**Request:**
-```bash
-curl --location 'https://chatwith.humains.com/clients/client_name/conversations_full?start_date=1234567890&end_date=1234567899'
-```
-
-#### Get Client Conversations (Summary)
-**Endpoint:** `GET /hub/clients/{client_name}/conversations`  
-Retrieves conversation summaries for a client, with optional date filtering.
-
-**Request:**
-```bash
-curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations?start_date=1234567890&end_date=1234567899'
-```
-
-#### Get Single Conversation
-**Endpoint:** `GET /hub/clients/{client_name}/conversations/{conversation_id}`  
-Retrieves details of a specific conversation.
-
-**Request:**
-```bash
-curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations/conversation_id'
-```
-
-#### Get Conversation Info
-**Endpoint:** `GET /hub/clients/{client_name}/conversations/{conversation_id}/info`  
-Retrieves metadata and external information for a specific conversation.
-
-**Request:**
-```bash
-curl --location 'https://chatwith.humains.com/hub/clients/client_name/conversations/conversation_id/info'
-```
-
 ## Deleting Conversation Information (Admin Only)
 
 Admin users can manage conversation-related metadata through the following DELETE endpoints.
 
 ### Delete All Conversation Information
 
-**Endpoint:** `DELETE /hub/clients/info/delete`
+**Endpoint:** `DELETE /clients/info/delete`
 
 Use this endpoint to purge all conversation information for a specific conversation. This operation requires admin-level authentication.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/hub/clients/info/delete' \
+curl --location 'https://chatwith.humains.com/clients/info/delete' \
 --header "Authorization: Bearer ADMIN_TOKEN" \
 --header 'Content-Type: application/json' \
 --request DELETE \
@@ -169,13 +176,13 @@ curl --location 'https://chatwith.humains.com/hub/clients/info/delete' \
 
 ### Delete Specific Conversation Information Key
 
-**Endpoint:** `DELETE /hub/clients/info_key/delete`
+**Endpoint:** `DELETE /clients/info_key/delete`
 
 This endpoint allows you to delete a specific key from the conversation's metadata. Admin privileges are required.
 
 **Request:**
 ```bash
-curl --location 'https://chatwith.humains.com/hub/clients/info_key/delete' \
+curl --location 'https://chatwith.humains.com/clients/info_key/delete' \
 --header "Authorization: Bearer ADMIN_TOKEN" \
 --header 'Content-Type: application/json' \
 --request DELETE \
@@ -210,3 +217,205 @@ Replace `<client>`, `<conversation_id>`, and `<phone>` with the appropriate valu
 A successful call initiation will return a `200 OK` status.
 
 Make sure to prepare the conversation using the `/prepare_conversation` endpoint before initiating the call.
+
+## Hub API Endpoints
+
+### Settings Management
+
+#### Set Multiple Settings
+**Endpoint:** `POST /settings`  
+**Auth Required:** Admin  
+Sets multiple setting values at once.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/settings' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "setting_key1": "value1",
+  "setting_key2": "value2"
+}'
+```
+
+#### Get Setting Value
+**Endpoint:** `GET /settings/{key}`  
+**Auth Required:** Admin  
+Retrieves the value for a specific setting key.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/settings/your_setting_key' \
+--header "Authorization: Bearer ADMIN_TOKEN"
+```
+
+### Value Management
+
+#### Get Value for Humain
+**Endpoint:** `GET /value/{humain}/{key}`  
+**Auth Required:** Admin  
+Retrieves a specific value for a humain.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/value/humain_name/key_name' \
+--header "Authorization: Bearer ADMIN_TOKEN"
+```
+
+#### Set Value
+**Endpoint:** `POST /value/{key}`  
+**Auth Required:** Admin  
+Sets a value for a specific humain and key.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/value/key_name' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "humain": "humain_name",
+  "value": "your_value"
+}'
+```
+
+#### Get Multiple Values
+**Endpoint:** `GET /values`  
+**Auth Required:** Admin  
+Retrieves multiple values for a humain.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/values' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "humain": "humain_name",
+  "values": ["key1", "key2"]
+}'
+```
+
+#### Set Multiple Values
+**Endpoint:** `POST /values`  
+**Auth Required:** Admin  
+Sets multiple values for a humain.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/values' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "humain": "humain_name",
+  "values": {
+    "key1": "value1",
+    "key2": "value2"
+  }
+}'
+```
+
+### Client Value Injection
+
+#### Inject Single Client Value
+**Endpoint:** `POST /inject_client_value`  
+**Auth Required:** Admin  
+Injects a single value for a specific client.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/inject_client_value' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "client_id": "client_name:humain_name",
+  "key": "key_name",
+  "value": "value_to_inject"
+}'
+```
+
+#### Inject Multiple Client Values
+**Endpoint:** `POST /inject_client_values`  
+**Auth Required:** Admin  
+Injects multiple values for a specific client.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/inject_client_values' \
+--header "Authorization: Bearer ADMIN_TOKEN" \
+--header 'Content-Type: application/json' \
+--data '{
+  "client_id": "client_name:humain_name",
+  "values": {
+    "key1": "value1",
+    "key2": "value2"
+  }
+}'
+```
+
+### Conversation Management
+
+#### Register Clients
+**Endpoint:** `GET /register_clients`  
+Registers all available clients.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/register_clients'
+```
+
+#### Get All Clients
+**Endpoint:** `GET /clients`  
+Retrieves a list of all registered clients.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients'
+```
+
+#### Get Client Conversations (Full)
+**Endpoint:** `GET /clients/{client_name}/conversations_full`  
+Retrieves detailed conversation history for a client, with optional date filtering.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations_full?start_date=1234567890&end_date=1234567899'
+```
+
+#### Get Client Conversations (Summary)
+**Endpoint:** `GET /clients/{client_name}/conversations`  
+Retrieves conversation summaries for a client, with optional date filtering.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations?start_date=1234567890&end_date=1234567899'
+```
+
+#### Get Single Conversation
+**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}`  
+Retrieves details of a specific conversation.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id'
+```
+
+#### Get Conversation Info
+**Endpoint:** `GET /clients/{client_name}/conversations/{conversation_id}/info`  
+Retrieves metadata and external information for a specific conversation.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/clients/client_name/conversations/conversation_id/info'
+```
+
+### Raw Data Access
+
+#### Get Raw Log Entry
+**Endpoint:** `GET /raw`  
+Retrieves raw log entry data for specific parameters.
+
+**Request:**
+```bash
+curl --location 'https://chatwith.humains.com/raw?client_id=client_name&conversation_id=conv_id&inference_id=inf_id&state_name=state&stage=stage_name'
+```
+
+Note: All endpoints marked with "Auth Required: Admin" require administrative privileges and the appropriate authentication token.
