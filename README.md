@@ -85,16 +85,15 @@ The API now supports a more complex response structure that can be configured pe
 
 ### Configuration
 
-To enable the complex response structure for a client, you need to set a configuration in the database using the settings API:
+To enable the complex response structure for a client, you need to set a configuration in the database using settings:
 
 ```bash
-curl --location 'https://chatwith.humains.com/settings' \
---header "Authorization: Bearer ADMIN_TOKEN" \
---header 'Content-Type: application/json' \
---data '{
-  "resp_structure:client_name": "{\"additional_info\": [\"key1\", \"key2\"], \"utterance_with_pronunciation\": true}"
-}'
+  "resp_structure:<client_name>": "{
+      "additional_info": ["keys", "you\'d", "like", "to", "get"],
+      "utterance_with_pronunciation": true
+  }"
 ```
+(see __resp_structure.conf)
 
 Where:
 - `client_name` is the name of your client
